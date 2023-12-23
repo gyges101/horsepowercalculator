@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri App</title>
+    <script type="module" src="/main.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <style>
+      .logo.vanilla:hover {
+        filter: drop-shadow(0 0 2em #ffe21c);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div style="width: 100vw; height: 100vh">
+      <div class="container">
+        <h1>Q(m3/H)</h1>
+        <div class="row">
+          <div class="input-group mb-3">
+            <input type="number" class="form-control" id="qm" placeholder="Q(m3/H)" aria-label="Q(m3/H)" aria-describedby="basic-addon2">
+            
+          </div>        
+        </div>
+        <h1>HMT(m)</h1>
+        <div class="row">
+          <div class="input-group mb-3">
+            <input type="number" class="form-control" id="hmt" placeholder="HMT(m)" aria-describedby="basic-addon2">
+            
+          </div>        
+        </div>
+  
+        <div class="row">
+          <button type="button" onclick="calcul()" class="btn btn-outline-success">Calculer</button>
+        </div>
+        <br>
+        <h1>Puissance (Kw) : <strong id="pkw"></strong></h1>
+        <h1>Puissance (CV) : <strong id="hrsp"></strong></h1>
+
+      </div>
+    </div>
+
+    <script>
+
+      function calcul() {
+        var qm = document.getElementById('qm').value;
+        var hmt = document.getElementById('hmt').value;
+        let ct = 9810;
+        let qmc = qm / 3600;
+        hmt = parseFloat(hmt) + 20;
+        let power = ct * hmt * qmc;
+        
+        let powerpre = power / 0.65;
+        let powerKw = powerpre / 1000;
+
+        document.getElementById('pkw').innerText = powerKw;
+
+        let horsepower = powerKw / 0.7457;
+        document.getElementById('hrsp').innerText = horsepower;
+        
+      }
+
+    </script>
+  </body>
+</html>
